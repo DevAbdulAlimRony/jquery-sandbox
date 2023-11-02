@@ -59,23 +59,29 @@ var jq = $.noConflict();
 jq(document).ready(function(){});
 
 //AJAX- Know Intro(Data Communication- Request Response)
-function loadData(){
+function getData() {
+    $.get("https://jsonplaceholder.typicode.com/todos/1")
+    .done(function(responseData) {
+        console.log(responseData);
+    })
+    .fail(function() {
+        console.log("Application Error");
+    });
+}
 
-    //create a new Request
-    //XMLHttpRequest is browser built in object- Its just a name, we can pass any data like json data, not just xml data
-    const xhr = new XMLHttpRequest();
-
-    //What to do when response arrives
-    xhr.onload = function(){
-        const container = document.getElementById('demo');
-        container.innerHTML = xhr.responseText;
-    }
-
-    //Prepare Request
-    xhr.open("GET", "./data/data.txt");
-
-    //Send Request
-    xhr.send();
-
-    //Fetch API is a simpler way to use ajax
+function sendData() {
+    $.ajax({
+        url: "https://jsonplaceholder.typicode.com/posts",
+        method: "POST",
+        data: JSON.stringify({
+            title: "dhuru",
+            body: "bodyless",
+            userId: 1,
+        }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+    })
+    .done(function(responseData) {
+        console.log(responseData);
+    });
 }
